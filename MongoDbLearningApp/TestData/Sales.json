@@ -1,0 +1,43 @@
+{
+  "Sales": [
+    {
+      "name": "Fastrack",
+      "item": "sling bag  ",
+      "price": 1500,
+      "fee": 25,
+      "rating": 2.65,
+      "manufacturingDate": "ISODate(\"2014-03-01T08:00:00Z\")"
+    },
+    {
+      "name": "Steve Madden",
+      "price": 5200,
+      "fee": 1000,
+      "rating": 5.25,
+      "manufacturingDate": "ISODate(\"2014-03-01T09:00:00Z\")"
+    },
+    {
+      "name": "Gucci",
+      "item": "pursé",
+      "price": 130000,
+      "fee": 20000,
+      "rating": 8.25,
+      "manufacturingDate": "ISODate(\"2014-03-15T09:00:00Z\")"
+    },
+    {
+      "name": "Hidesign leather",
+      "item": "  bag",
+      "price": 3450,
+      "fee": 100,
+      "rating": 4.25,
+      "manufacturingDate": "ISODate(\"2014-03-15T09:00:00Z\")"
+    },
+    {
+      "name": "Michelle Kors",
+      "item": "bag",
+      "price": 1860,
+      "fee": 50,
+      "rating": 6.82,
+      "manufacturingDate": "ISODate(\"2014-03-15T09:00:00Z\")"
+    }
+  ]
+}

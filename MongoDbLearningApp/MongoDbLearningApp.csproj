@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="TestData\AirTravel.json" />
+    <None Remove="TestData\Sales.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\AirTravel.json" />
+    <EmbeddedResource Include="TestData\Sales.json" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+    <PackageReference Include="Mongo2Go" Version="2.2.11" />
+    <PackageReference Include="MongoDB.Driver" Version="2.9.0-beta1" />
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
+    <PackageReference Include="WonderTools.JsonSectionReader" Version="1.0.2" />
+  </ItemGroup>
+
+</Project>
