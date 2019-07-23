@@ -2,7 +2,6 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/ConsoleApp1/v15
-/.vs/MongoDbLearningApp/v15
-/MongoDbLearningApp/bin/Debug/netcoreapp2.2
+/.vs
+/MongoDbLearningApp/bin
 /MongoDbLearningApp/obj
