@@ -15,13 +15,13 @@ namespace MongoDbLearningApp.Model
             public int Price { get; set; }
             public double Fee { get; set; }
             public double Rating { get; set; }
-            public string ManufacturingDate { get; set; }    
-        
+            public string ManufacturingDate { get; set; }            
         //TODO : Merge and keep one double value 
             public double PriceValues { get; set; }
             public double MathValues { get; set; }
             public bool Result { get; set; }
             public int IndexOfBytes { get; set; }
             public string[] ArrayValues { get; set; }
+            public DateTime ConvertedDateTime { get; set; }
     }
 }

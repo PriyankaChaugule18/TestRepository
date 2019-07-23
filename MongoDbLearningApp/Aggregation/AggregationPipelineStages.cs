@@ -13,27 +13,57 @@ namespace MongoDbLearningApp.Aggregation
         //addField
         [Test]
         public void Add_travelCreditScore_field_to_document()
-        {
+        {           
             var stageElement = new BsonElement();
             var stage = new BsonDocument(stageElement);
 
-            var doc = travelCollection.Aggregate().AppendStage<BsonDocument>(stage).ToList();
+            var stagingValue = new BsonArray
+            {
+                new BsonDocument
+                {
+                    {
+                        "$addFields", new BsonDocument
+                        {
+                            {
+                                "travelCreditScore",new BsonDocument
+                                {
+                                    {
+                                        "$sum","$TravelRating"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }, 
+                new BsonDocument
+                {
+                    {
+                        "$addFields", new BsonDocument
+                        {
+                            {
+                                "",""
+                            }
+                        }
+                    }
+                }
+           };
 
-            Assert.AreNotEqual(doc, null);
+            var pipeline = new[] { stagingValue };
+           // var doc = travelCollection.Aggregate<AirTravel>(pipeline).ToList();
+
+            //var doc = travelCollection.Aggregate().AppendStage<AirTravel>(stage).ToList();
+
+           // Assert.AreNotEqual(doc, null);
         }
 
         //Bucket
         [Test]
         public void Group_document_with_age_and_boundries()
         {
-            #region Insert 10 documents
-            var documents = InitializeData.InsertTravelDetails(testData);
-            travelCollection.InsertMany(documents);
-            #endregion
-
-           //// AggregateExpressionDefinition<AirTravel, int> groupBy = travelCollection.Aggregate().Group(x => x.Age);
-           // //var groupBy = travelCollection.Aggregate().
-           // var boundries = new int[] { 20, 25 };
+            PrepareDatabase();
+           // AggregateExpressionDefinition<AirTravel, int> groupBy = travelCollection.Aggregate<AirTravel>().Group(x => x.Age);
+           
+            //var boundries = new int[] { 20, 25 };
 
            // var bucketDoc = travelCollection.Aggregate().Bucket(groupBy, boundries);
 
@@ -44,11 +74,7 @@ namespace MongoDbLearningApp.Aggregation
         [Test]
         public void Group_document_with_age_and_boundries1()
         {
-            #region Insert 10 documents
-            var documents = InitializeData.InsertTravelDetails(testData);
-            travelCollection.InsertMany(documents);
-            #endregion
-
+            PrepareDatabase();
             //// AggregateExpressionDefinition<AirTravel, int> groupBy = travelCollection.Aggregate().Group(x => x.Age);
             // //var groupBy = travelCollection.Aggregate().
             // var boundries = new int[] { 20, 25 };
@@ -57,6 +83,9 @@ namespace MongoDbLearningApp.Aggregation
 
             // Assert.AreNotEqual(bucketDoc, null);
         }
+
+        //TODO
+        //collStats
 
         //$Count
         [Test]
@@ -75,6 +104,18 @@ namespace MongoDbLearningApp.Aggregation
             Assert.AreEqual(docEstimateCount, 6);
         }
 
+        //TODO
+        //$curentOp
+
+        //TODO
+        //$facet
+
+        //TODO
+        //$geoNear
+
+        //TODO
+        //$graphLookup
+
         //group 
         [Test]
         public void Group_document_by_firstName()
@@ -89,6 +130,41 @@ namespace MongoDbLearningApp.Aggregation
             Assert.AreEqual(docs.Count(), 6);
         }
 
+        //Todo
+        //$indexStats
+        [Test]
+        public void Index()
+        {
+            PrepareDatabase();
+            var doc = new BsonDocument
+            {
+                {
+                    "firstName",1
+                },
+                {
+                    "age",1
+                }
+            };
+
+            var stats = new BsonDocument
+            {
+                {
+                    "$indexStats",new BsonDocument
+                    {
+                    }
+                }
+            };
+
+            string index = travelCollection.Indexes.CreateOne(doc);
+            var findQuery = travelCollection.Find(x => x.FirstName =="Krishna");
+            var pipeline = new[] { stats };
+            var query = travelCollection.Aggregate<AirTravel>(pipeline); 
+
+            //Assert.AreNotEqual(document, null);
+            //Assert.AreEqual(document.Name.First(), "Sonali");
+            //Assert.AreEqual(docs.Count(), 6);
+        }
+        
         //$Limit
         [Test]
         public void Find_first_two_document_with_age_greater_than_25()
@@ -104,6 +180,12 @@ namespace MongoDbLearningApp.Aggregation
         }
 
         //TODO
+        //listLocalSessions 
+
+        //TODO
+        //listSessions 
+
+        //TODO
         //$Lookup
         [Test]
         public void Lookup_age_details_and_include_in_updated_details()
@@ -113,7 +195,7 @@ namespace MongoDbLearningApp.Aggregation
             Assert.AreNotEqual(loopUpDocument, null);
         }
 
-        //$Match
+        //$match
         [Test]
         public void Find_all_documents_with_matching_age()
         {
@@ -126,15 +208,16 @@ namespace MongoDbLearningApp.Aggregation
             Assert.AreNotEqual(doc, null);
             Assert.AreEqual(doc.Count, 2);
         }
-
-        [Ignore("Correct use of out needs to be made!")]
+        
         //$out
         [Test]
         public void Find_all_passenger_names_grouped_with_same_age()
         {
             PrepareDatabase();
-            var doc = travelCollection.Aggregate().Group(x =>x.Age,grp=> new { }).Out("Passengers").ToList();
-            Assert.AreNotEqual(doc, null);
+            var document = travelCollection.Aggregate().Group(x => x.Age, group => new { Name = group.Select(x => x.Age), Count = group.Count() }).Out("Passengers").ToList();
+            Assert.AreNotEqual(document, null);
+            Assert.AreEqual(document.Count(), 5);
+            Assert.AreEqual(document.LastOrDefault().Count, 2);
         }
 
         //$project
@@ -188,10 +271,29 @@ namespace MongoDbLearningApp.Aggregation
 
         //$sort by count
         [Test]
-        public void Sort_by_count()
+        public void Find_all_documents_with_age_sort_by_count()
         {
             PrepareDatabase();
             var document = travelCollection.Aggregate().SortByCount(x=>x.Age).ToList();
+            Assert.AreNotEqual(document, null);
+            Assert.AreEqual(document.Count(), 5);
+        }
+
+        //todo
+        //$unwind
+        [Test]
+        public void Find_all_documents_of_seat_preference()
+        {
+            PrepareDatabase();
+            var doc = new BsonDocument
+            {
+                {
+                    "$unwind","$seatPreferences"
+                }
+            };
+
+            var pipeline = new[] { doc };
+            var document = travelCollection.Aggregate<AirTravel>(pipeline).ToList();
             Assert.AreNotEqual(document, null);
             Assert.AreEqual(document.Count(), 5);
         }

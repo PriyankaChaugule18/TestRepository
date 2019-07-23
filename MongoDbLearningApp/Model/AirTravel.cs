@@ -19,8 +19,13 @@ namespace MongoDbLearningApp.Model
         public List<FoodTypes> FoodPreferences{ get; set; }
         public List<TravelHistory> TravelHistory { get; set; }
         public List<TravelFrequency> TravelFrequency { get; set; }
-
-        public int Result { get; set; }
+        public List<string> SeatPreference { get; set; }
+        public int IntegerResult { get; set; }
+        public string[][] Beverages { get; set; }
+        public object BsonResult { get; set; }
+        public string[] ArrayResult { get; set; }
+        public string Result { get; set; }
+        public bool BooleanResult { get; set; }
     }
 
     public enum FoodTypes

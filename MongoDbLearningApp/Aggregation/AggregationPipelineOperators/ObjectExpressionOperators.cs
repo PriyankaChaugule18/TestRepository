@@ -31,7 +31,7 @@ namespace MongoDbLearningApp.Aggregation.AggregationPipelineOperators
                                                    {
                                                        {
                                                            "$objectToArray","$travelFrequency"
-                                                       }
+                                                       },
                                                    }
 
                                 }

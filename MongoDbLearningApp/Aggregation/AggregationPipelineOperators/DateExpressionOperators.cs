@@ -10,10 +10,21 @@ namespace MongoDbLearningApp.Aggregation.AggregationPipelineOperators
 {
     class DateExpressionOperators :SalesCollectionMongoDb
     {
+        //$dateFromParts
         [Test]
-        public void Find_the_dates_for_a_product()
+        public void Find_the_fasttrack_sing_bag_and_match_the_manufactured_datatime()
         {
             PrepareDatabase();
+            var match = new BsonDocument
+                {
+                    {
+                        "$match",
+                        new BsonDocument
+                            {
+                                {"Name","Fastrack"},
+                            }
+                    }
+                };
             var project = new BsonDocument
                 {
                     {
@@ -21,15 +32,23 @@ namespace MongoDbLearningApp.Aggregation.AggregationPipelineOperators
                         new BsonDocument
                             {
                                 {"ManufacturingDate",1 },
-                                {"MathValues", new BsonDocument
+                                {"ConvertedDateTime", new BsonDocument
                                                    {
                                                        {
-                                                           "$dateFromString", new BsonDocument
+                                                           "$dateFromParts", new BsonDocument
                                                            {
-                                                               //{
-                                                               //  dateString, new BsonDocument{ '$date' },
-                                                               //  timezone,new BsonDocument{"America/New_York"}
-                                                               //}
+                                                               {
+                                                                   "year", 2017
+                                                               },
+                                                               {
+                                                                   "month" , 2
+                                                               },
+                                                               {
+                                                                   "day",8
+                                                               },
+                                                               {
+                                                                   "hour",12
+                                                               }
                                                            }
                                                        }
                                                    }

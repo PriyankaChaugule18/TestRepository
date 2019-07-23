@@ -7,6 +7,7 @@
       "phone": "1234567909",
       "gender": "Male",
       "travelrating": 3.45,
+      "seatPreferences": [ "Window", "Aisle", "front", "back" ],
       "travelHistory": [
         {
           "bookingID": "AGS1453",
@@ -17,6 +18,10 @@
         }
       ],
       "foodPreferences": [ "Chinese", "Indian_NonVeg", "Indian_Veg" ],
+      "beverages": [
+        [ "Soft", "Pepsi" ],
+        [ "Hard", "Chivas" ]
+      ],
       "travelFrequency": [
         {
           "toFro": "Bangalore-Delhi",
@@ -44,7 +49,11 @@
           "travelDate": "2018-12-22T11:37:56Z"
         }
       ],
-      "foodPreferences": [ "Indian_NonVeg", "Indian_Veg" ]
+      "foodPreferences": [ "Indian_NonVeg", "Indian_Veg" ],
+      "beverages": [
+        [ "Soft", "Pepsi" ],
+        [ "Hard", "Chivas" ]
+      ]
     },
     {
       "firstName": "Souvik",
@@ -62,7 +71,11 @@
           "travelDate": "2019-04-02T18:27:56Z"
         }
       ],
-      "foodPreferences": [ "Indian_NonVeg", "Indian_Veg" ]
+      "foodPreferences": [ "Indian_NonVeg", "Indian_Veg" ],
+      "beverages": [
+        [ "Soft", "Pepsi" ],
+        [ "Hard", "Chivas" ]
+      ]
     },
     {
       "firstName": "Devbrat",
@@ -104,7 +117,11 @@
           "frequency": 4
         }
       ],
-      "foodPreferences": [ "Chinese" ]
+      "foodPreferences": [ "Chinese" ],
+      "beverages": [
+        [ "Soft", "Pepsi" ],
+        [ "Hard", "Chivas" ]
+      ]
     },
     {
       "firstName": "Sonali",
